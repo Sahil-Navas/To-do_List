@@ -6,6 +6,12 @@ struct list
     std::string task;
 };    
 
+void taskAdder(int choco)
+{
+    choco += 1;
+}
+
+
 void listReader(int todoSize, std::vector<list> ls)
 {
     for(int b = 0; b < todoSize; b++)
