@@ -6,15 +6,14 @@ struct list
     std::string task;
 };    
 
-void taskAdder(std::vector<list> ls, int todoSize, int priorityNo, std::string taskTodo)
+void taskAdder(std::vector<list> &ls, int priorityNo, std::string taskTodo)
 {
     ls.push_back(list());
-    todoSize = ls.size() - 1;
     std::cin >> priorityNo;
     std::cin.ignore(256,'\n');
     getline(std::cin, taskTodo);
-    ls[todoSize].priority = priorityNo;
-    ls[todoSize].task = taskTodo;
+    ls[ls.size() - 1].priority = priorityNo;
+    ls[ls.size() - 1].task = taskTodo;
 
 }
 
@@ -63,7 +62,7 @@ int main()
     switch(inputNo)
     {
         case 1:
-            taskAdder(ls, todoSize, priorityNo, taskTodo);
+            taskAdder(ls, priorityNo, taskTodo);
             std::cout << ls[3].priority << " at " << ls[3].task << std::endl; 
             break;
         case 2:
