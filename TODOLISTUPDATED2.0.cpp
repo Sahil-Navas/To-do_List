@@ -1,20 +1,34 @@
 #include <iostream>
 #include <vector>
+
 struct list 
 {
     int priority;
     std::string task;
 };    
 
+void taskRemover(std::vector<list> &ls, int elementNo)
+{
+    for(int i = 0; i < ls.size(); i++)
+    {
+        if(ls[i].priority == elementNo)
+        {
+            ls.erase(ls.begin() + elementNo);
+        }
+    }
+}
+
+
 void taskAdder(std::vector<list> &ls, int priorityNo, std::string taskTodo)
 {
     ls.push_back(list());
+    printf("\nType in the priority of your task: ");
     std::cin >> priorityNo;
+    printf("\nType in the task you need to do: ");
     std::cin.ignore(256,'\n');
     getline(std::cin, taskTodo);
     ls[ls.size() - 1].priority = priorityNo;
     ls[ls.size() - 1].task = taskTodo;
-
 }
 
 
@@ -30,58 +44,65 @@ void listReader(int todoSize, std::vector<list> ls)
 int main()
 {
     std::vector<list> ls;
-    int todoSize, priorityNo, inputNo; 
+    int todoSize, priorityNo, inputNo, elementNo; 
     std::string taskTodo;
 
-    std::cout << "Type the number of tasks: ";
-    scanf("%d", &todoSize);
-
-    for(int j = 1; j <= todoSize; j++)
+    while(true)
     {
-        ls.push_back(list());
-    }
+        printf("1) Add a task\n");
+        printf("2) Read the list\n");
+        printf("3) Remove a task\n");
+        printf("4) Sort tasks alphabetically\n");
+        printf("5) Reset/New list\n");
+        printf("6) Exit program\n");
+        scanf("%d", &inputNo);
 
-    for(int i = 0; i < todoSize; i++)
-    {
-        std::cin >> priorityNo;
-        std::cin.ignore(256,'\n');
-        getline(std::cin, taskTodo);
-        ls[i].priority = priorityNo;
-        ls[i].task = taskTodo;
-    }
-
-    printf("1) Add a task\n");
-    printf("2) Read the list\n");
-    printf("3) Remove a task\n");
-    printf("4) Sort tasks alphabetically\n");
-    printf("5) Reset list\n");
-    printf("6) Exit program\n");
-
-    scanf("%d", &inputNo);
-
-    switch(inputNo)
-    {
-        case 1:
+        if(inputNo == 1)
+        {
             taskAdder(ls, priorityNo, taskTodo);
             std::cout << ls[3].priority << " at " << ls[3].task << std::endl; 
-            break;
-        case 2:
+        }else if (inputNo == 2)
+        {
             listReader(todoSize, ls);
-            break;
-        case 3:
 
-            break;
-        case 4:
+        }else if (inputNo == 3)
+        {
+            printf("Please type in the element number of the task to delete: \n");
+            scanf("%d", &elementNo);
+            taskRemover(ls, elementNo);
+            listReader(todoSize, ls);
+        }else if (inputNo == 4)
+        {
+            
+        }else if (inputNo == 5)
+        {
+            ls.clear();
+            std::cout << "Type the number of tasks: ";
+            scanf("%d", &todoSize);
 
-            break;
-        case 5:
+            for(int j = 1; j <= todoSize; j++)
+            {
+                ls.push_back(list());
+            }
 
+            for(int i = 0; i < todoSize; i++)
+            {
+                printf("\nType in the priority of your task: ");
+                std::cin >> priorityNo;
+                printf("\nType in the task you need to do: ");
+                std::cin.ignore(256,'\n');
+                getline(std::cin, taskTodo);
+                ls[i].priority = priorityNo;
+                ls[i].task = taskTodo;
+            }
+        }else if (inputNo == 6)
+        {
             break;
-        case 6:
-
-            break;
-        default:
-        return 0;
+        }else 
+        {
+            printf("Please type in a value between 1 - 6\n");
+        }
     }
+
 
  }
