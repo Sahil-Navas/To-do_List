@@ -37,7 +37,7 @@ void listReader(int todoSize, std::vector<list> ls)
     for(int b = 0; b < todoSize; b++)
     {
         std::cout << "Task " << ls[b].priority << ": " << ls[b].task << std::endl;
-    }
+    } 
 }
 
 
@@ -73,20 +73,26 @@ int main()
             listReader(todoSize, ls);
         }else if (inputNo == 4)
         {
-            
+            for(int i = 0; i < ls.size(); i++)
+            {
+                for(int j = i + 1; j < ls.size(); j++)
+                {
+                    if(ls[i].task > ls[j].task)
+                    {
+                        std::swap(ls[i].task, ls[j].task);
+                        std::swap(ls[i].priority, ls[j].priority);
+                    } 
+                }
+            }
         }else if (inputNo == 5)
         {
             ls.clear();
             std::cout << "Type the number of tasks: ";
             scanf("%d", &todoSize);
 
-            for(int j = 1; j <= todoSize; j++)
-            {
-                ls.push_back(list());
-            }
-
             for(int i = 0; i < todoSize; i++)
             {
+                ls.push_back(list());
                 printf("\nType in the priority of your task: ");
                 std::cin >> priorityNo;
                 printf("\nType in the task you need to do: ");
