@@ -1,6 +1,36 @@
 #include <iostream>
 #include <vector>
 
+void sortAlgoNumba(std::vector<list> &ls)
+{
+    for(int i = 0; i < ls.size(); i++)
+    {
+        for(int j = i + 1; j < ls.size(); j++)
+        {
+            if(ls[i].priority > ls[j].priority)
+            {
+                std::swap(ls[i].task, ls[j].task);
+                std::swap(ls[i].priority, ls[j].priority);
+            } 
+        }
+    }
+}
+
+void sortAlgoAlpha(std::vector<list> &ls)
+{
+    for(int i = 0; i < ls.size(); i++)
+    {
+        for(int j = i + 1; j < ls.size(); j++)
+        {
+            if(ls[i].task > ls[j].task)
+            {
+                std::swap(ls[i].task, ls[j].task);
+                std::swap(ls[i].priority, ls[j].priority);
+            } 
+        }
+    }
+}
+
 struct list 
 {
     int priority;
@@ -63,6 +93,7 @@ int main()
             std::cout << ls[3].priority << " at " << ls[3].task << std::endl; 
         }else if (inputNo == 2)
         {
+            sortAlgoNumba(ls);
             listReader(todoSize, ls);
 
         }else if (inputNo == 3)
@@ -73,17 +104,8 @@ int main()
             listReader(todoSize, ls);
         }else if (inputNo == 4)
         {
-            for(int i = 0; i < ls.size(); i++)
-            {
-                for(int j = i + 1; j < ls.size(); j++)
-                {
-                    if(ls[i].task > ls[j].task)
-                    {
-                        std::swap(ls[i].task, ls[j].task);
-                        std::swap(ls[i].priority, ls[j].priority);
-                    } 
-                }
-            }
+            sortAlgoAlpha(ls);
+
         }else if (inputNo == 5)
         {
             ls.clear();
@@ -101,6 +123,8 @@ int main()
                 ls[i].priority = priorityNo;
                 ls[i].task = taskTodo;
             }
+
+            sortAlgoNumba(ls);
         }else if (inputNo == 6)
         {
             break;
