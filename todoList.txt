@@ -1,0 +1,5 @@
+1) Identify the flaws, there are always flaws.
+2) Build malware and prepare an attack.
+3) A reverse-shell, two-stage exploit. 
+4) Write the script. Why do it myself? I know exactly what when and how its going to run. 
+5) Launch the attack. Once I do, I'll own every android phone in the building. This the thrill of pwning a system, the greatest rush, god access. The feeling never gets old. 

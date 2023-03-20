@@ -2,6 +2,13 @@
 #include <vector>
 #include <fstream>
 
+struct list 
+{
+    int priority;
+    std::string task;
+};    
+
+// Sort the list numerically by priority
 void sortAlgoNumba(std::vector<list> &ls)
 {
     for(int i = 0; i < ls.size(); i++)
@@ -16,7 +23,7 @@ void sortAlgoNumba(std::vector<list> &ls)
         }
     }
 }
-
+// Sorts the list alphabetically A-Z
 void sortAlgoAlpha(std::vector<list> &ls)
 {
     for(int i = 0; i < ls.size(); i++)
@@ -26,18 +33,26 @@ void sortAlgoAlpha(std::vector<list> &ls)
             if(ls[i].task > ls[j].task)
             {
                 std::swap(ls[i].task, ls[j].task);
-                std::swap(ls[i].priority, ls[j].priority);
+            } 
+        }
+    }
+}
+// Sorts the list alphabetically Z-A  
+void sortAlgoReverseAlpha(std::vector<list> &ls)
+{
+    for(int i = 0; i < ls.size(); i++)
+    {
+        for(int j = i + 1; j < ls.size(); j++)
+        {
+            if(ls[i].task < ls[j].task)
+            {
+                std::swap(ls[i].task, ls[j].task);
             } 
         }
     }
 }
 
-struct list 
-{
-    int priority;
-    std::string task;
-};    
-
+// Removes task with element number
 void taskRemover(std::vector<list> &ls, int elementNo)
 {
     for(int i = 0; i < ls.size(); i++)
@@ -49,12 +64,20 @@ void taskRemover(std::vector<list> &ls, int elementNo)
     }
 }
 
-
+// adds tasks to the to do list
 void taskAdder(std::vector<list> &ls, int priorityNo, std::string taskTodo)
 {
     ls.push_back(list());
     printf("\nType in the priority of your task: ");
     std::cin >> priorityNo;
+    // Just to make sure there is no doubles of priority
+    for(int i = 0; i < ls.size(); i++)
+    {
+        if(priorityNo == ls[i].priority)
+        {
+            priorityNo = ls[i].priority + 1;
+        }
+    }
     printf("\nType in the task you need to do: ");
     std::cin.ignore(256,'\n');
     getline(std::cin, taskTodo);
@@ -77,18 +100,21 @@ int main()
     std::vector<list> ls;
     int todoSize, priorityNo, inputNo, elementNo; 
     std::string taskTodo;
-
+// While loop here to keep things going even after completing
     while(true)
     {
+        // All the options as displayed here
         printf("1) Add a task\n");
         printf("2) Read the list\n");
         printf("3) Remove a task\n");
-        printf("4) Sort tasks alphabetically\n");
+        printf("4) Sort tasks alphabetically A-Z\n");
         printf("5) Reset/New list\n");
         printf("6) Write list to a text file\n");
-        printf("7) Exit program\n");
-        scanf("%d", &inputNo);
+        printf("7) Sort tasks alphabetically Z-A\n");
+        printf("8) Exit program\n");
 
+        scanf("%d", &inputNo);
+        // This was originally a switch case but because of the loop changed it to if elses
         if(inputNo == 1)
         {
             taskAdder(ls, priorityNo, taskTodo);
@@ -122,6 +148,7 @@ int main()
             sortAlgoNumba(ls);
         }else if (inputNo == 6)
         {
+            // Opens to a file named todoList.txt and writes the list towards it
             std::ofstream listFile;
             listFile.open("todoList.txt");
             for(int m = 0; m < ls.size(); m++)
@@ -129,6 +156,9 @@ int main()
                 listFile << ls[m].priority << ") " << ls[m].task << std::endl;
             }
         } else if (inputNo == 7)
+        {
+            sortAlgoReverseAlpha(ls);
+        } else if (inputNo == 8)
         {
             break;
         }
