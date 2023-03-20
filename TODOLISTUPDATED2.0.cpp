@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 void sortAlgoNumba(std::vector<list> &ls)
 {
@@ -84,7 +85,8 @@ int main()
         printf("3) Remove a task\n");
         printf("4) Sort tasks alphabetically\n");
         printf("5) Reset/New list\n");
-        printf("6) Exit program\n");
+        printf("6) Write list to a text file\n");
+        printf("7) Exit program\n");
         scanf("%d", &inputNo);
 
         if(inputNo == 1)
@@ -114,21 +116,23 @@ int main()
 
             for(int i = 0; i < todoSize; i++)
             {
-                ls.push_back(list());
-                printf("\nType in the priority of your task: ");
-                std::cin >> priorityNo;
-                printf("\nType in the task you need to do: ");
-                std::cin.ignore(256,'\n');
-                getline(std::cin, taskTodo);
-                ls[i].priority = priorityNo;
-                ls[i].task = taskTodo;
+                taskAdder(ls, priorityNo, taskTodo);
             }
 
             sortAlgoNumba(ls);
         }else if (inputNo == 6)
         {
+            std::ofstream listFile;
+            listFile.open("todoList.txt");
+            for(int m = 0; m < ls.size(); m++)
+            {
+                listFile << ls[m].priority << ") " << ls[m].task << std::endl;
+            }
+        } else if (inputNo == 7)
+        {
             break;
-        }else 
+        }
+        else 
         {
             printf("Please type in a value between 1 - 6\n");
         }
